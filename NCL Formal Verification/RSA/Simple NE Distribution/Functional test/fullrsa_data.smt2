@@ -28,6 +28,7 @@
 
 ;outputs: z
 (declare-fun z () (_ BitVec 8))
+(declare-fun mulout() (_ BitVec 8))
 
 ;NCL gate Boolean function - TH12: (A + B)
 (define-fun th12 ((a (_ BitVec 1)) (b (_ BitVec 1)) (g1 (_ BitVec 1))) (_ BitVec 1)
@@ -296,7 +297,7 @@
 	(not
 		(let
 			(
-				(boolmuxsel (th22 (rail1 j1) (rail0 j0) gc))
+				(boolmuxsel (th22 (rail1 j0) (rail0 j0) gc))
 				(nreg (concat n3 n2 n1 n0))
 				(ereg (concat e3 e2 e1 e0))
 				(dreg (concat d3 d2 d1 d0))
@@ -355,13 +356,15 @@
 				(datap x)
 				(datap j0)
 				(datap j1)
-				(datap j0)
+				(datap k0)
 				(datap k1)
 			)
 			(or
 				(= z nreg)
 				(= z ereg)
-				;(= mulout bfinal)
+			)
+			(and
+				(= mulout bfinal)
 			)
 		)))))))
 	)
